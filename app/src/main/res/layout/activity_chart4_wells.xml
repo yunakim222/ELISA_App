@@ -8,7 +8,7 @@
     android:paddingTop="20dp"
     android:paddingRight="20dp"
     android:paddingBottom="20dp"
-    tools:context=".Chart">
+    tools:context=".Chart4Wells">
 
     <EditText
         android:id="@+id/file_title"
@@ -60,10 +60,11 @@
         android:id="@+id/heatBtn"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/heatmap_icon"
+        android:background="@drawable/well_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fileBtn"
         app:layout_constraintTop_toBottomOf="@+id/line" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

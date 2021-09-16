@@ -4,39 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/topLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        app:layout_constraintHorizontal_weight="1">
+
+        <Switch
+            android:id="@+id/toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="4 Wells"
+            android:textOff="4"
+            android:textOn="96"
+            android:textColor="#008F26"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="96 Wells"
+            android:textColor="#008F26"
+            android:textSize="20sp"
+            android:paddingLeft="10dp"
+            />
+    </LinearLayout>
 
     <Button
         android:id="@+id/secret"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:stateListAnimator="@null"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/receiveBtn"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:stateListAnimator="@null"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/receive_data"
-        app:layout_constraintTop_toBottomOf="@+id/secret"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:stateListAnimator="@null"
         app:layout_constraintBottom_toTopOf="@+id/fileBtn"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secret" />
 
     <ImageButton
         android:id="@+id/fileBtn"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:stateListAnimator="@null"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:background="@drawable/open_files"
-        app:layout_constraintTop_toBottomOf="@+id/receiveBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:stateListAnimator="@null"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/receiveBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

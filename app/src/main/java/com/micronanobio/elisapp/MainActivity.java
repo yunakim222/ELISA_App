@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Switch;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -22,6 +23,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -30,10 +32,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BluetoothSocket btSocket = null;
 
+        //Setting up Toggle Switch for confirming 94 or 4 wells
+        Switch toggle = (Switch) findViewById(R.id.toggle);
+
+        /*toggle.setOnClickListener((v) -> {
+            Boolean wells = true; //true = 96 wells, false = 4 wells
+            wells = toggle.isChecked();
+        });*/
+
         //Setting up Receive Data button
         ImageButton receiveButton = (ImageButton) findViewById(R.id.receiveBtn);
         receiveButton.setOnClickListener((v) -> {
-            this.handleBluetooth(btSocket);
+            this.handleBluetooth(btSocket, toggle.isChecked());
         });
 
         //For opening up existing files
@@ -102,15 +112,21 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            if (toggle.isChecked()) { //96-wells
+                Intent csIntent = new Intent(getApplicationContext(), ChartSelect.class);
+                csIntent.putExtra("fileName", title);
+                startActivity(csIntent);
+            } else {
+                Intent csIntent = new Intent(getApplicationContext(), ChartSelect4Wells.class);
+                csIntent.putExtra("fileName", title);
+                startActivity(csIntent);
+            }
 
-            Intent csIntent = new Intent(getApplicationContext(), ChartSelect.class);
-            csIntent.putExtra("fileName", title);
-            startActivity(csIntent);
         });
     }
 
     //REFERENCED: https://www.youtube.com/watch?v=TLXpDY1pItQ&t=373s&ab_channel=BranislavStanojkovic
-    public void handleBluetooth(BluetoothSocket btSocket){
+    public void handleBluetooth(BluetoothSocket btSocket, Boolean toggle){
         final UUID mUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
         BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
         Object macAddress = btAdapter.getBondedDevices();
@@ -142,11 +158,11 @@ public class MainActivity extends AppCompatActivity {
         } while(!btSocket.isConnected()||(count > 10));
 
         //calls the helper method that does actual work
-        this.communicate(btSocket);
+        this.communicate(btSocket, toggle);
     }
 
     //Receives data from bluetooth, saves it into txt file, and opens ChartSelect activity
-    public void communicate(BluetoothSocket btSocket) {
+    public void communicate(BluetoothSocket btSocket, Boolean toggle) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
 
@@ -187,9 +203,15 @@ public class MainActivity extends AppCompatActivity {
                 btSocket.close();
 
                 //Opening ChartSelect activity
-                Intent csIntent = new Intent(getApplicationContext(), ChartSelect.class);
-                csIntent.putExtra("fileName", title);
-                startActivity(csIntent);
+                if (toggle) { //96-wells
+                    Intent csIntent = new Intent(getApplicationContext(), ChartSelect.class);
+                    csIntent.putExtra("fileName", title);
+                    startActivity(csIntent);
+                } else {
+                    Intent csIntent = new Intent(getApplicationContext(), ChartSelect4Wells.class);
+                    csIntent.putExtra("fileName", title);
+                    startActivity(csIntent);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -6,6 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/topLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        app:layout_constraintHorizontal_weight="1">
+    <Switch
+        android:id="@+id/toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="4 Wells"
+        android:textColor="#008F26"
+        android:textSize="20sp"
+       />
+    <TextView
+        android:id="@+id/wellText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="96 Wells"
+        android:textColor="#008F26"
+        android:textSize="20sp"
+        android:paddingLeft="10dp"
+        />
+    </LinearLayout>
+
     <ImageButton
         android:id="@+id/lineBtn"
         android:layout_width="100dp"
@@ -13,7 +44,7 @@
         android:background="@drawable/line_icon"
         app:layout_constraintEnd_toStartOf="@+id/shareBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topLinear"
         android:layout_marginTop="20dp"
         />
 
@@ -24,7 +55,7 @@
         android:background="@drawable/share_icon"
         app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
         app:layout_constraintStart_toEndOf="@+id/lineBtn"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topLinear"
         android:layout_marginTop="20dp"
         />
 
@@ -35,7 +66,7 @@
         android:background="@drawable/delete_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/shareBtn"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topLinear"
         android:layout_marginTop="20dp"
         />
 
@@ -46,7 +77,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/deleteBtn"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_marginLeft="50dp" />
 
 

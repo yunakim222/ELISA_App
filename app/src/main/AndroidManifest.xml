@@ -13,6 +13,9 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.ELISAApp">
+        <activity android:name=".Heatmap4Wells"></activity>
+        <activity android:name=".Chart4Wells" />
+        <activity android:name=".ChartSelect4Wells" />
         <activity android:name=".Heatmap" />
         <activity android:name=".FileSelect" />
         <activity android:name=".ChartSelect" />

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Switch;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -33,6 +34,7 @@ public class FileSelect extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_select);
+        Switch toggle = (Switch) findViewById(R.id.toggle);
 
         //Adds all file names into arraylist
         File docPath = new File(getApplicationContext().getFilesDir(), "text");
@@ -59,9 +61,16 @@ public class FileSelect extends AppCompatActivity {
 
         //Draws line graph with selected data file
         lineBtn.setOnClickListener((v) -> {
-            Intent csIntent = new Intent(getApplicationContext(), ChartSelect.class);
-            csIntent.putExtra("fileName", title[0]);
-            startActivity(csIntent);
+            if(toggle.isChecked()){//96wells
+                Intent csIntent = new Intent(getApplicationContext(), ChartSelect.class);
+                csIntent.putExtra("fileName", title[0]);
+                startActivity(csIntent);
+            } else {//4wells
+                Intent csIntent = new Intent(getApplicationContext(), ChartSelect4Wells.class);
+                csIntent.putExtra("fileName", title[0]);
+                startActivity(csIntent);
+            }
+
             Collections.sort(fileNames);
             MyRecyclerViewAdapter adapter2 = new MyRecyclerViewAdapter(this, fileNames);
             adapter2.setClickListener(this::onItemClick);

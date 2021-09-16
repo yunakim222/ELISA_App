@@ -3,6 +3,7 @@ package com.micronanobio.elisapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,11 +14,12 @@ import android.widget.ImageButton;
 import java.io.File;
 import java.util.Scanner;
 
-public class Heatmap extends AppCompatActivity {
+public class Heatmap4Wells extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_heatmap);
+        setContentView(R.layout.activity_heatmap4_wells);
 
         //Gets file name from intent's extra
         String fileName = "";
@@ -44,7 +46,7 @@ public class Heatmap extends AppCompatActivity {
         ImageButton lineButton = (ImageButton) findViewById(R.id.lineBtn);
         String finalFileName = fileName;
         lineButton.setOnClickListener((v) -> {
-            Intent fIntent = new Intent(getApplicationContext(), Chart.class);
+            Intent fIntent = new Intent(getApplicationContext(), Chart4Wells.class);
             fIntent.putExtra("fileName", finalFileName);
             startActivity(fIntent);
         });
@@ -84,30 +86,31 @@ public class Heatmap extends AppCompatActivity {
         }
 
         //Heatmap is consisted of 96 buttons in table layout. For loop goes over one by one to set it up
-        Button[] buttons = new Button[96];
-        for(int i=1; i<97; i++) {
-            String buttonID = "h" + i;
+        ImageButton[] buttons = new ImageButton[4];
+        for(int i=1; i<5; i++) {
+            String buttonID = "well" + i;
             int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
-            buttons[i-1] = ((Button) findViewById(resID));
+            buttons[i-1] = ((ImageButton) findViewById(resID));
             setHeatmapColor(buttons[i-1], sampleData[i-1]);
         }
     }
-    //Sets the color for each cell of heatmap depending on the value
-    public void setHeatmapColor(Button btn, float data) {
+
+    public void setHeatmapColor(ImageButton btn, float data) {
         //RANGES ARE ARBITRARY
-        if(data > 100000) {
-            btn.setBackgroundColor(Color.parseColor("#ec4f43"));
+        String colorStr = "#ffffff";
+        if(data > 90000) {
+            colorStr = "#ec4f43";
+        } else if (data > 70000){
+            colorStr = "#fe7968";
+        } else if (data > 50000){
+            colorStr = "#fe948d";
         } else if (data > 10000){
-            btn.setBackgroundColor(Color.parseColor("#fe7968"));
-        } else if (data > 5000){
-            btn.setBackgroundColor(Color.parseColor("#fe948d"));
-        } else if (data > 1000){
-            btn.setBackgroundColor(Color.parseColor("#ffbdb3"));
+            colorStr = "#ffbdb3";
         } else{
-            btn.setBackgroundColor(Color.parseColor("#ffe0db"));
+            colorStr = "#ffe0db";
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(colorStr)));
         }
     }
-
-
-
 }

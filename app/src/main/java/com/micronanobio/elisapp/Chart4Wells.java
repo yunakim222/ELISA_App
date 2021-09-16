@@ -15,17 +15,17 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-public class Chart extends AppCompatActivity {
+public class Chart4Wells extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chart);
+        setContentView(R.layout.activity_chart4_wells);
 
         //Gets file name from intent's extra
         String fileName = "";
@@ -61,7 +61,7 @@ public class Chart extends AppCompatActivity {
         ImageButton heatButton = (ImageButton) findViewById(R.id.heatBtn);
         String finalFileName = fileName;
         heatButton.setOnClickListener((v) -> {
-            Intent fIntent = new Intent(getApplicationContext(), Heatmap.class);
+            Intent fIntent = new Intent(getApplicationContext(), Heatmap4Wells.class);
             fIntent.putExtra("fileName", finalFileName);
             startActivity(fIntent);
         });
@@ -99,82 +99,37 @@ public class Chart extends AppCompatActivity {
         //KEEP IN MIND THAT CODE BELOW THIS LINE IS NOT THE CLEANEST/PRETTIEST CODE
         LineChart line = findViewById(R.id.line);
         ArrayList<Entry> row1 = new ArrayList<>();
-        ArrayList<Entry> row2 = new ArrayList<>();
-        ArrayList<Entry> row3 = new ArrayList<>();
-        ArrayList<Entry> row4 = new ArrayList<>();
-        ArrayList<Entry> row5 = new ArrayList<>();
-        ArrayList<Entry> row6 = new ArrayList<>();
-        ArrayList<Entry> row7 = new ArrayList<>();
-        ArrayList<Entry> row8 = new ArrayList<>();
 
-        for(int i=0; i<12;i++) {
-            row1.add(new Entry(i+1, sampleData[i]));
+        for(int i = 0; i < 4; i++) {
+            row1.add(new Entry(i + 1, sampleData[i]));
         }
-        for(int i=0; i<12;i++) {
-            row2.add(new Entry(i+1, sampleData[i+12]));
-        }
-        for(int i=0; i<12;i++) {
-            row3.add(new Entry(i+1, sampleData[i+24]));
-        }
-        for(int i=0; i<12;i++) {
-            row4.add(new Entry(i+1, sampleData[i+36]));
-        }
-        for(int i=0; i<12;i++) {
-            row5.add(new Entry(i+1, sampleData[i+48]));
-        }
-        for(int i=0; i<12;i++) {
-            row6.add(new Entry(i+1, sampleData[i+60]));
-        }
-        for(int i=0; i<12;i++) {
-            row7.add(new Entry(i+1, sampleData[i+72]));
-        }
-        for(int i=0; i<12;i++) {
-            row8.add(new Entry(i+1, sampleData[i+84]));
-            System.out.println(sampleData[i+84]);
-        }
+
 
         LineDataSet r1 = new LineDataSet(row1, "A");
-        LineDataSet r2 = new LineDataSet(row2, "B");
-        LineDataSet r3 = new LineDataSet(row3, "C");
-        LineDataSet r4 = new LineDataSet(row4, "D");
-        LineDataSet r5 = new LineDataSet(row5, "E");
-        LineDataSet r6 = new LineDataSet(row6, "F");
-        LineDataSet r7 = new LineDataSet(row7, "G");
-        LineDataSet r8 = new LineDataSet(row8, "H");
+        r1.setDrawCircles(true);
+        r1.setDrawCircleHole(false);
+        r1.setDrawValues(false);
+        r1.setCircleRadius(5);
+        r1.setLineWidth(10);
+        r1.setCircleColor(Color.parseColor("#ef6f6c"));
+        r1.setColor(Color.parseColor("#ef6f6c")); //red
 
         ArrayList<ILineDataSet> rows = new ArrayList<>();
-        this.rowHelper(r1, rows, "#ef6f6c"); //red
-        this.rowHelper(r2, rows, "#f2c57c"); //orange
-        this.rowHelper(r3, rows, "#ffd571"); //yellow
-        this.rowHelper(r4, rows, "#7fb685"); //green
-        this.rowHelper(r5, rows, "#82b3cf"); //light blue
-        this.rowHelper(r6, rows, "#2c7199"); //navy
-        this.rowHelper(r7, rows, "#756378"); //purple
-        this.rowHelper(r8, rows, "#334438"); //black
+        rows.add(r1);
+
         LineData lineData = new LineData(rows);
 
         line.setData(lineData);
         line.getXAxis().setAxisMinimum(1);
-        line.getXAxis().setAxisMaximum(12.1f);//because graph renders choppy with 12
-        line.getXAxis().setLabelCount(11);
+        line.getXAxis().setAxisMaximum(4.1f); //that's because the graph renders choppy with 4
+        line.getXAxis().setLabelCount(3);
         line.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         line.getAxisLeft().setAxisMinimum(0);
-        line.getAxisLeft().setAxisMaximum(max);
+        line.getAxisLeft().setAxisMaximum(max+2000);//same reason as above
         line.getAxisLeft().setLabelCount(10);
         line.getAxisRight().setEnabled(false);
         line.getDescription().setText("");
-        line.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        line.getLegend().setEnabled(false);
         line.animateX(1000);
-    }
-    public void rowHelper(LineDataSet r, ArrayList<ILineDataSet> rows, String colorStr){
-        r.setColor(Color.parseColor(colorStr));
-        r.setCircleColor(Color.parseColor(colorStr));
-        r.setDrawValues(false);
-        r.setDrawCircles(true);
-        r.setDrawCircleHole(false);
-        r.setDrawValues(false);
-        r.setCircleRadius(2);
-        r.setLineWidth(4);
-        rows.add(r);
     }
 }
