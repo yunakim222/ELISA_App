@@ -41,14 +41,20 @@
                 android:layout_height="100dp"
                 android:layout_width="100dp"
                 android:background="@drawable/circle"
-                android:layout_margin="25dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop = "60dp"
                 />
+
+
             <ImageButton
                 android:id="@+id/well2"
                 android:layout_height="100dp"
                 android:layout_width="100dp"
                 android:background="@drawable/circle"
-                android:layout_margin="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop = "60dp"
                 />
         </TableRow>
         <TableRow
@@ -60,14 +66,18 @@
                 android:layout_height="100dp"
                 android:layout_width="100dp"
                 android:background="@drawable/circle"
-                android:layout_margin="25dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop = "15dp"
                 />
             <ImageButton
                 android:id="@+id/well4"
                 android:layout_height="100dp"
                 android:layout_width="100dp"
                 android:background="@drawable/circle"
-                android:layout_margin="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop = "15dp"
                 />
         </TableRow>
     </TableLayout>
@@ -97,7 +107,7 @@
         <ImageButton
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/line_icon"
+            android:background="@drawable/bar_icon"
             android:id="@+id/lineBtn"
             />
     </LinearLayout>

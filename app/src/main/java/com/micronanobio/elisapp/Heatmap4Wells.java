@@ -99,15 +99,15 @@ public class Heatmap4Wells extends AppCompatActivity {
         //RANGES ARE ARBITRARY
         String colorStr = "#ffffff";
         if(data > 90000) {
-            colorStr = "#ec4f43";
+            colorStr = "#ddec4f43";
         } else if (data > 70000){
-            colorStr = "#fe7968";
+            colorStr = "#ddfe7968";
         } else if (data > 50000){
-            colorStr = "#fe948d";
+            colorStr = "#ddfe948d";
         } else if (data > 10000){
-            colorStr = "#ffbdb3";
+            colorStr = "#ddffbdb3";
         } else{
-            colorStr = "#ffe0db";
+            colorStr = "#ddffe0db";
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(colorStr)));

@@ -9,7 +9,7 @@
         android:id="@+id/chartBtn"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:background="@drawable/line_icon_with_words"
+        android:background="@drawable/bar_icon_with_words"
         app:layout_constraintBottom_toTopOf="@+id/heatBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

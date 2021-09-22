@@ -133,9 +133,9 @@ public class MainActivity extends AppCompatActivity {
         String address = macAddress.toString();
         address = address.replace("[", "");
         address = address.replace("]", "");
-        //System.out.println(address); //should be 00:14:03:06:32:BE
+        System.out.println(address); //should be 00:14:03:06:32:BE
         BluetoothDevice hc05 = btAdapter.getRemoteDevice(address);
-        //System.out.println(hc05.getName()); //should be DSD TECH HC-05
+        System.out.println(hc05.getName()); //should be DSD TECH HC-05
 
         //tries to connect to bluetooth for 10 times before it gives up
         int count = 0;
@@ -185,6 +185,49 @@ public class MainActivity extends AppCompatActivity {
 
                 System.out.println("output is: " + out);
                 out = out.substring(1, out.length() - 2); //gets rid of initial [ and ,] at the end
+
+                //manipulation due to different well number references in arduino and app code
+                /*In Arduino |     In our app
+                * 2  3       |     1   2
+                * 1  4       |     3   4
+                * */
+                if (!toggle) {
+                    String[] values = out.split(",");
+                    out = "";
+                    for (int ind = 1; ind <=4; ind++){
+                        out += ind;
+                        out += ",";
+                        if (ind == 1) {
+                            out += values[5];
+                            out += ",";
+                            out += values[6];
+                            out += ",";
+                            out += values[7];
+                            out += ",";
+                        } else if (ind == 2) {
+                            out += values[9];
+                            out += ",";
+                            out += values[10];
+                            out += ",";
+                            out += values[11];
+                            out += ",";
+                        } else if (ind == 3) {
+                            out += values[1];
+                            out += ",";
+                            out += values[2];
+                            out += ",";
+                            out += values[3];
+                            out += ",";
+                        } else {
+                            out += values[13];
+                            out += ",";
+                            out += values[14];
+                            out += ",";
+                            out += values[15];
+                        }
+                    }
+                    System.out.println("output after 4 well processing is: " + out);
+                }
 
                 //Saving into txt file
                 File docPath = new File(getApplicationContext().getFilesDir(), "text");

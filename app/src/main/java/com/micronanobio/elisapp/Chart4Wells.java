@@ -8,12 +8,18 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.io.File;
@@ -97,39 +103,37 @@ public class Chart4Wells extends AppCompatActivity {
 
         //Starts drawing line graph. Each row is a arraylist
         //KEEP IN MIND THAT CODE BELOW THIS LINE IS NOT THE CLEANEST/PRETTIEST CODE
-        LineChart line = findViewById(R.id.line);
-        ArrayList<Entry> row1 = new ArrayList<>();
+        BarChart bar = findViewById(R.id.bar);
+        ArrayList<BarEntry> row1 = new ArrayList<>();
 
         for(int i = 0; i < 4; i++) {
-            row1.add(new Entry(i + 1, sampleData[i]));
+            row1.add(new BarEntry(i + 1, sampleData[i]));
         }
 
 
-        LineDataSet r1 = new LineDataSet(row1, "A");
-        r1.setDrawCircles(true);
-        r1.setDrawCircleHole(false);
-        r1.setDrawValues(false);
-        r1.setCircleRadius(5);
-        r1.setLineWidth(10);
-        r1.setCircleColor(Color.parseColor("#ef6f6c"));
-        r1.setColor(Color.parseColor("#ef6f6c")); //red
+        BarDataSet r1 = new BarDataSet(row1,"A");
 
-        ArrayList<ILineDataSet> rows = new ArrayList<>();
+
+        ArrayList<IBarDataSet> rows = new ArrayList<>();
         rows.add(r1);
 
-        LineData lineData = new LineData(rows);
+        BarData barData = new BarData(rows);
+        r1.setDrawValues(false);
+        r1.setColor(Color.parseColor("#ef6f6c")); //red
 
-        line.setData(lineData);
-        line.getXAxis().setAxisMinimum(1);
-        line.getXAxis().setAxisMaximum(4.1f); //that's because the graph renders choppy with 4
-        line.getXAxis().setLabelCount(3);
-        line.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        line.getAxisLeft().setAxisMinimum(0);
-        line.getAxisLeft().setAxisMaximum(max+2000);//same reason as above
-        line.getAxisLeft().setLabelCount(10);
-        line.getAxisRight().setEnabled(false);
-        line.getDescription().setText("");
-        line.getLegend().setEnabled(false);
-        line.animateX(1000);
+        bar.setData(barData);
+        bar.getXAxis().setAxisMinimum(0.5f);
+        bar.getXAxis().setAxisMaximum(4.5f); //that's because the graph doesn't render pretty with 4
+        bar.getXAxis().setLabelCount(4);
+        bar.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        bar.getXAxis().setCenterAxisLabels(false);
+        bar.getXAxis().setDrawGridLines(false);
+        bar.getAxisLeft().setAxisMinimum(0);
+        bar.getAxisLeft().setAxisMaximum(max+2000);//same reason as above
+        bar.getAxisLeft().setLabelCount(10);
+        bar.getAxisRight().setEnabled(false);
+        bar.getDescription().setText("");
+        bar.getLegend().setEnabled(false);
+        bar.animateX(1000);
     }
 }
